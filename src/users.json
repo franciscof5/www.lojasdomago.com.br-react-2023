@@ -1,0 +1,92 @@
+[
+  {
+    "_id": "647d4cf9f9619ee13f3dcc69",
+    "name": "nome Nome",
+    "avatar": "https://randomuser.me/api/portraits/women/26.jpg",
+    "email": "dasj@gmail.com",
+    "salary": 122222,
+    "date": "2019-05-14",
+    "status": "Active",
+    "__v": 0
+  },
+  {
+    "_id": "647d4dddf9619ee13f3dcd2a",
+    "name": "abraoteste",
+    "avatar": "https://randomuser.me/api/portraits/women/12.jpg",
+    "email": "ADAS@GMAIL.COM",
+    "salary": 999990,
+    "date": "2000-02-01",
+    "status": "Inactive",
+    "__v": 0
+  },
+  {
+    "_id": "647d5617c0bfcc0e52427d3c",
+    "name": "João Santana",
+    "avatar": "https://randomuser.me/api/portraits/men/37.jpg",
+    "email": "meuEmail@gmail.com",
+    "salary": 7.5,
+    "date": "2023-06-06",
+    "status": "Inactive",
+    "__v": 0
+  },
+  {
+    "_id": "647d73b38576630364a59ffe",
+    "name": "teste 2",
+    "avatar": "https://randomuser.me/api/portraits/men/80.jpg",
+    "email": "teste@gmail.com",
+    "salary": 100,
+    "date": "2023-06-05",
+    "status": "Active",
+    "__v": 0
+  },
+  {
+    "_id": "647d73b78576630364a5a001",
+    "name": "teste 3",
+    "avatar": "https://randomuser.me/api/portraits/women/96.jpg",
+    "email": "teste@gmail.com",
+    "salary": 100,
+    "date": "2023-06-05",
+    "status": "Active",
+    "__v": 0
+  },
+  {
+    "_id": "647dd993a623a657182edd50",
+    "name": "teste do teste",
+    "avatar": "https://randomuser.me/api/portraits/women/33.jpg",
+    "email": "dasj@gmail.com",
+    "salary": 1200,
+    "date": "2000-01-01",
+    "status": "Active",
+    "__v": 0
+  },
+  {
+    "_id": "647dddd39997bd55979e766a",
+    "name": "65156",
+    "avatar": "https://randomuser.me/api/portraits/men/37.jpg",
+    "email": "ADAS@GMAIL.COM",
+    "salary": 1200,
+    "date": "2000-12-01",
+    "status": "Active",
+    "__v": 0
+  },
+  {
+    "_id": "647dddd39997bd55979e766c",
+    "name": "65156",
+    "avatar": "https://randomuser.me/api/portraits/men/47.jpg",
+    "email": "ADAS@GMAIL.COM",
+    "salary": 1200,
+    "date": "2000-12-01",
+    "status": "Active",
+    "__v": 0
+  },
+  {
+    "_id": "647de0efa623a657182eecb1",
+    "name": "SADADA",
+    "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+    "email": "dasj@gmail.com",
+    "salary": 1600,
+    "date": "2000-01-01",
+    "status": "Inactive",
+    "__v": 0
+  }
+]
