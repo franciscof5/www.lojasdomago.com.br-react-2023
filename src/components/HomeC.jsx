@@ -68,20 +68,25 @@ export default class HomeC extends Component {
     var anuncios = this.state.anunciosListAPI;
     return (
       <div>
-      {
-        anuncios.children.map(item => (
-         <div  key={item.name}>
-          <h2>
-            {item.name}
-          </h2>
-          <p>
-              <img width="300" src={"http://api.lojasdomago.com.br/static" + item.path.replace("code/anuncios-controle","")} />
-          </p>
-         </div>
-        )
+        <Row xs={1} md={5} className="g-4">
+        {
+          anuncios.children.map(item => (
+          <Col key={item.name}>
+            <Card>
+              <Card.Img variant="top" src={"http://api.lojasdomago.com.br/static" + item.path.replace("code/anuncios-controle","")} />
+              <Card.Body>
+                <Card.Title>{item.name.split('R$')[0]}</Card.Title>
+                <Card.Text>
+                R$ { item.name.slice(0,-4).split('R$')[1] },00
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          )
 
-        )
-      }
+          )
+        }
+        </Row>
       </div>
    );
     /*var users = this.state.anunciosListAPI.filter((data) => {
