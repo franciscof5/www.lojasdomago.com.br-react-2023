@@ -74,9 +74,30 @@ export default class HomeC extends Component {
           <h2>
             {item.name}
           </h2>
-          <p>
-              <img width="300" src={"http://api.lojasdomago.com.br/static" + item.path.replace("code/anuncios-controle","")} />
-          </p>
+          { ( item.children !== undefined ) ? 
+            <span>
+              { item.children.map(item2 => (
+                ( item2.children !== undefined ) ? 
+                  <span>
+                    { item2.children.map(item3 => (
+                      <p>
+                        { item3.name } <br />
+                        { item3.children !== undefined ? 
+                            item3.children[1] !== undefined ? 
+                              <img width="300" src={"http://api.lojasdomago.com.br/static" + item3.children[1].path.replace("code/anuncios-controle","")} />
+                            : null
+                          : null }  <br />
+                      </p>
+                    ) ) }
+                  </span> 
+                  :  null 
+                
+              ) ) }
+            </span> 
+            :  null 
+          }
+          
+          
          </div>
         )
 

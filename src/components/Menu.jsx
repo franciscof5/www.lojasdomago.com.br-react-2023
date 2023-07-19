@@ -7,15 +7,8 @@ export default function Menu() {
 
   return (
     <nav className="my-2">
-      <h2>Gestão de Usuários</h2>
-      <div>
-        <Link to="/" path={location.pathname}>
-          <Button variant="primary">Home</Button>
-        </Link>{" "}
-        <Link to="/add" path={location.pathname}>
-          <Button variant="primary">Adicionar Usuário</Button>
-        </Link>
-      </div>
+      <h1>Lojas do Mago</h1>
+      <p>Tecnologia que parece mágica!</p>
     </nav>
   );
 }

@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "semantic-ui-css/semantic.min.css";
+//import "fomantic-ui-css/fomantic-ui.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 
