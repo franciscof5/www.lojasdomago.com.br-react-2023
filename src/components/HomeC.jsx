@@ -2,17 +2,22 @@ import React, { Component } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
-import anunciosListSample from "../users.json";
+import anunciosListSample from "../anuncios_sample.json";
 import axios from "axios";
 import { Link } from "react-router-dom";
-const APIbaseURL = "http://api.lojasdomago.com.br";
+
+const API_anuncios = "http://api.lojasdomago.com.br";
+const API_cripto = "https://criptoya.com/api/binance/btc/brl/1";
+
+var BTC_ask = 145000;
 
 export default class HomeC extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      anunciosListAPI: anunciosListSample,
-      filtrandoUsuarios: null,
+      anunciosListAPI: anunciosListSample.children,
+      //anunciosListAPI: [children[{a,b}],],
+      filtrandoAnuncioPorTitulo: null,
       filtrandoStatus: "all",
       filtrandoData: null
     };
@@ -20,23 +25,30 @@ export default class HomeC extends Component {
 
   componentDidMount() {
     console.log("componentDidMount()");
-    this.getUsers();
+    this.getAnuncios();
+    this.getBTC();
   }
 
-  async getUsers() {
-    await axios.get(APIbaseURL + "/anuncios/").then((response) => {
+  async getAnuncios() {
+    await axios.get(API_anuncios + "/anuncios/").then( (response) => {
       var pars
       if (response.data) {
-        //console.log("response.data OK", response.data)
         pars = response.data
-        pars = JSON.stringify(response.data, null, 2)
-        //console.log("parsed", pars)
-        pars = JSON.parse(pars)
-        console.log("JSON.parse: ", pars)
-        this.setState({ anunciosListAPI:  pars})
+        //pars = JSON.stringify(response.data, null, 2)
+        //pars = JSON.parse(pars)
+        this.setState({ anunciosListAPI: pars.children})
       }
       
     }).catch(err=> console.log(err));
+  }
+
+  async getBTC() {
+    await axios.get(API_cripto).then( (response) => {
+      if(response.data) {
+        console.log(response.data.ask)
+        BTC_ask = response.data.ask;
+      }
+    })
   }
 
   editUser(e, id) {
@@ -44,7 +56,7 @@ export default class HomeC extends Component {
   }
 
   handleSearch = (event) => {
-    this.setState({ filtrandoUsuarios: event.target.value });
+    this.setState({ filtrandoAnuncioPorTitulo: event.target.value });
   };
   handleStatus = (event) => {
     this.setState({ filtrandoStatus: event.target.value });
@@ -53,7 +65,7 @@ export default class HomeC extends Component {
     this.setState({ filtrandoData: event.target.value });
   };
 
-  mapping = (node) => {
+  /*mapping = (node) => {
     return ( node.children !== undefined  ? 
       node.children.map(item => (
         <p>bbb{item.name}</p>
@@ -61,41 +73,67 @@ export default class HomeC extends Component {
       :
       <p>{ node.name }</p> 
     )
-    
-  }
+  }*/
 
   render() {
-    var anuncios = this.state.anunciosListAPI;
-    return (
-      <div>
-        <Row xs={1} md={5} className="g-4">
-        {
-          anuncios.children.map(item => (
-          <Col key={item.name}>
-            <Card>
-              <Card.Img variant="top" src={"http://api.lojasdomago.com.br/static" + item.path.replace("code/anuncios-controle","")} />
-              <Card.Body>
-                <Card.Title>{item.name.split('R$')[0]}</Card.Title>
-                <Card.Text>
-                R$ { item.name.slice(0,-4).split('R$')[1] },00
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          )
-
-          )
-        }
-        </Row>
-      </div>
-   );
-    /*var users = this.state.anunciosListAPI.filter((data) => {
-      if (this.state.filtrandoUsuarios == null) {
+    var anuncios = this.state.anunciosListAPI.filter( (data) => {
+      if (this.state.filtrandoAnuncioPorTitulo == null) {
         return data;
       } else if (
         data.name
           .toLowerCase()
-          .includes(this.state.filtrandoUsuarios.toLowerCase())
+          .includes(this.state.filtrandoAnuncioPorTitulo.toLowerCase())
+      ) {
+        return data;
+      }
+      return null;
+    });/**/
+    return (
+      <div>
+        <div className="row my-2">
+          <div className="col-md-6 flex all-center">
+            <i className="i fa fa-search table-search-icon" />
+            <input
+              type="text"
+              onChange={this.handleSearch}
+              placeholder="Filtrar por nome"
+              className="form-control"
+            />
+          </div>
+        </div>
+        <div className="row my-4">
+          <div>
+            <Row xs={1} md={5} className="g-4">
+            {
+              anuncios.map(item => (
+              <Col key={item.name}>
+                <Card>
+                  <Card.Img variant="top" src={API_anuncios + "/static" + item.path.replace("code/anuncios-controle","")} />
+                  <Card.Body>
+                    <Card.Title>{item.name.split('R$')[0]}</Card.Title>
+                    <Card.Text>
+                    R$ { item.name.slice(0,-4).split('R$')[1] },00 <br />
+                    BTC <small>{ (item.name.slice(0,-4).split('R$')[1]/BTC_ask).toFixed(5) } </small>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              )
+
+              )
+            }
+            </Row>
+          </div>
+        </div>
+      </div>
+   );
+    /*var users = this.state.anunciosListAPI.filter((data) => {
+      if (this.state.filtrandoAnuncioPorTitulo == null) {
+        return data;
+      } else if (
+        data.name
+          .toLowerCase()
+          .includes(this.state.filtrandoAnuncioPorTitulo.toLowerCase())
       ) {
         return data;
       }

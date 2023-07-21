@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-const APIbaseURL = "https://mack-webmobile.vercel.app/api";
+const API_anuncios = "https://mack-webmobile.vercel.app/api";
 
 export default class EditC extends Component {
   //console.log(data);

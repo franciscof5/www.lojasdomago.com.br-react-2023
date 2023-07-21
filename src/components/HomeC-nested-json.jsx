@@ -5,14 +5,14 @@ import Card from "react-bootstrap/Card";
 import anunciosListSample from "../users.json";
 import axios from "axios";
 import { Link } from "react-router-dom";
-const APIbaseURL = "http://api.lojasdomago.com.br";
+const API_anuncios = "http://api.lojasdomago.com.br";
 
 export default class HomeC extends Component {
   constructor(props) {
     super(props);
     this.state = {
       anunciosListAPI: anunciosListSample,
-      filtrandoUsuarios: null,
+      filtrandoAnuncioPorTitulo: null,
       filtrandoStatus: "all",
       filtrandoData: null
     };
@@ -20,11 +20,11 @@ export default class HomeC extends Component {
 
   componentDidMount() {
     console.log("componentDidMount()");
-    this.getUsers();
+    this.getAnuncios();
   }
 
-  async getUsers() {
-    await axios.get(APIbaseURL + "/anuncios/").then((response) => {
+  async getAnuncios() {
+    await axios.get(API_anuncios + "/anuncios/").then((response) => {
       var pars
       if (response.data) {
         //console.log("response.data OK", response.data)
@@ -44,7 +44,7 @@ export default class HomeC extends Component {
   }
 
   handleSearch = (event) => {
-    this.setState({ filtrandoUsuarios: event.target.value });
+    this.setState({ filtrandoAnuncioPorTitulo: event.target.value });
   };
   handleStatus = (event) => {
     this.setState({ filtrandoStatus: event.target.value });
@@ -106,12 +106,12 @@ export default class HomeC extends Component {
       </div>
    );
     /*var users = this.state.anunciosListAPI.filter((data) => {
-      if (this.state.filtrandoUsuarios == null) {
+      if (this.state.filtrandoAnuncioPorTitulo == null) {
         return data;
       } else if (
         data.name
           .toLowerCase()
-          .includes(this.state.filtrandoUsuarios.toLowerCase())
+          .includes(this.state.filtrandoAnuncioPorTitulo.toLowerCase())
       ) {
         return data;
       }

@@ -2,7 +2,7 @@ import React from "react";
 import Alert from "react-bootstrap/Alert";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-const APIbaseURL = "https://mack-webmobile.vercel.app/api";
+const API_anuncios = "https://mack-webmobile.vercel.app/api";
 
 export default function FormValidation() {
   const {
@@ -27,7 +27,7 @@ export default function FormValidation() {
     console.log(data);
 
     axios
-      .post(APIbaseURL + "/users", data)
+      .post(API_anuncios + "/users", data)
       .then(function (res) {
         console.log(res);
         if (res.statusText === "OK") {
@@ -111,7 +111,7 @@ export default function FormValidation() {
 }
 /*import React, { Component } from "react";
 import axios from "axios";
-const APIbaseURL = "https://mack-webmobile.vercel.app/api";
+const API_anuncios = "https://mack-webmobile.vercel.app/api";
 
 export default class HomeC extends Component {
   addUser() {
@@ -129,7 +129,7 @@ export default class HomeC extends Component {
     };
     console.log("data");
     axios
-      .post(APIbaseURL + "/users", user)
+      .post(API_anuncios + "/users", user)
       .then(function (res) {
         console.log(res);
       })
