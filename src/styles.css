@@ -3,7 +3,17 @@
   text-align: center;
 }
 .main {
-  padding: 40px;
+  padding: 0;
+}
+.headerWarn {
+  background-color: #000;
+  color: #FFF;
+  text-align: center;
+  padding: 1px 40px;
+  font-size: 14px;
+}
+.main-container {
+  padding: 10px 40px;
 }
 /*body {
   display: flex;

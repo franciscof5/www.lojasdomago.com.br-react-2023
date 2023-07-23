@@ -13,7 +13,7 @@ export default class HomeC extends Component {
     this.state = {
       anunciosListAPI: anunciosListSample,
       filtrandoAnuncioPorTitulo: null,
-      filtrandoStatus: "all",
+      filtrandoAnuncioPorCategoria: "all",
       filtrandoData: null
     };
   }
@@ -47,7 +47,7 @@ export default class HomeC extends Component {
     this.setState({ filtrandoAnuncioPorTitulo: event.target.value });
   };
   handleStatus = (event) => {
-    this.setState({ filtrandoStatus: event.target.value });
+    this.setState({ filtrandoAnuncioPorCategoria: event.target.value });
   };
   handleData = (event) => {
     this.setState({ filtrandoData: event.target.value });
@@ -119,20 +119,20 @@ export default class HomeC extends Component {
     });
     users = users
       .filter((data) => {
-        if (this.state.filtrandoStatus.toLowerCase() === "all") {
+        if (this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "all") {
           //console.log("Todos");
           return data;
         } else if (
           data.status.toLowerCase() === "active" &&
-          this.state.filtrandoStatus.toLowerCase() === "active"
+          this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "active"
         ) {
-          console.log(this.state.filtrandoStatus);
+          console.log(this.state.filtrandoAnuncioPorCategoria);
           return data;
         } else if (
           data.status.toLowerCase() === "inactive" &&
-          this.state.filtrandoStatus.toLowerCase() === "inactive"
+          this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "inactive"
         ) {
-          console.log(this.state.filtrandoStatus);
+          console.log(this.state.filtrandoAnuncioPorCategoria);
           return data;
         }
         return null;

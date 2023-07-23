@@ -15,10 +15,10 @@ export default class HomeC extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      anunciosListAPI: anunciosListSample.children,
+      anunciosListAPI: anunciosListSample.pictures,
       //anunciosListAPI: [children[{a,b}],],
       filtrandoAnuncioPorTitulo: null,
-      filtrandoStatus: "all",
+      filtrandoAnuncioPorCategoria: "casa",
       filtrandoData: null
     };
   }
@@ -36,7 +36,7 @@ export default class HomeC extends Component {
         pars = response.data
         //pars = JSON.stringify(response.data, null, 2)
         //pars = JSON.parse(pars)
-        this.setState({ anunciosListAPI: pars.children})
+        this.setState({ anunciosListAPI: pars.pictures})
       }
       
     }).catch(err=> console.log(err));
@@ -58,8 +58,8 @@ export default class HomeC extends Component {
   handleSearch = (event) => {
     this.setState({ filtrandoAnuncioPorTitulo: event.target.value });
   };
-  handleStatus = (event) => {
-    this.setState({ filtrandoStatus: event.target.value });
+  handleCategoria = (event) => {
+    this.setState({ filtrandoAnuncioPorCategoria: event.target.value });
   };
   handleData = (event) => {
     this.setState({ filtrandoData: event.target.value });
@@ -87,7 +87,57 @@ export default class HomeC extends Component {
         return data;
       }
       return null;
-    });/**/
+    }).filter( (data) => {
+      if (this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "todos") {
+        //console.log("Todos");
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "casa" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "casa"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "eletronicos" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "eletronicos"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "esportes" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "esportes"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "imoveis" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "imoveis"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "musica" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "musica"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "vagas" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "vagas"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } else if (
+        data.cat.toLowerCase() === "veiculos" &&
+        this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "veiculos"
+      ) {
+        console.log(this.state.filtrandoAnuncioPorCategoria);
+        return data;
+      } 
+      
+      return null;
+    });
+    var img_nex;
     return (
       <div>
         <div className="row my-2">
@@ -100,27 +150,43 @@ export default class HomeC extends Component {
               className="form-control"
             />
           </div>
+          <div className="col-md-6 flex flex-end">
+            <select onChange={this.handleCategoria} className="form-control">
+              <option value="todos">Todos</option>
+              <option value="casa">Casa</option>
+              <option value="eletronicos">Eletrônicos</option>
+              <option value="esportes">Esportes</option>
+              <option value="imoveis">Imóveis</option>
+              <option value="musica">Música</option>
+              <option value="veiculos">Veículos</option>
+            </select>
+          </div>
         </div>
         <div className="row my-4">
           <div>
-            <Row xs={1} md={5} className="g-4">
+            <Row xs={1} md={4} className="g-4">
             {
-              anuncios.map(item => (
+              anuncios
+              //.sort((a, b) => a.price > b.price ? 1 : -1)
+              .map(item => (
               <Col key={item.name}>
                 <Card>
-                  <Card.Img variant="top" src={API_anuncios + "/static" + item.path.replace("code/anuncios-controle","")} />
+                  <span next={ item.pictures ? 
+                      item.pictures[0] ?
+                      this.img_nex = item.pictures[0].path
+                      : null : null }></span>
+                  <Card.Img variant="top" src={API_anuncios + "/static" + "/" + this.img_nex.replace("/code/anuncios-controle","") } />
                   <Card.Body>
-                    <Card.Title>{item.name.split('R$')[0]}</Card.Title>
+                    <Card.Title>{ item.name }</Card.Title>
                     <Card.Text>
-                    R$ { item.name.slice(0,-4).split('R$')[1] },00 <br />
-                    BTC <small>{ (item.name.slice(0,-4).split('R$')[1]/BTC_ask).toFixed(5) } </small>
+                    Cat: { item.cat } <br />
+                    R$ { item.price },00 <br />
+                    BTC <small>{ (item.price/BTC_ask).toFixed(5) } </small>
                     </Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
-              )
-
-              )
+              ) )
             }
             </Row>
           </div>
@@ -141,20 +207,20 @@ export default class HomeC extends Component {
     });
     users = users
       .filter((data) => {
-        if (this.state.filtrandoStatus.toLowerCase() === "all") {
+        if (this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "all") {
           //console.log("Todos");
           return data;
         } else if (
           data.status.toLowerCase() === "active" &&
-          this.state.filtrandoStatus.toLowerCase() === "active"
+          this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "active"
         ) {
-          console.log(this.state.filtrandoStatus);
+          console.log(this.state.filtrandoAnuncioPorCategoria);
           return data;
         } else if (
           data.status.toLowerCase() === "inactive" &&
-          this.state.filtrandoStatus.toLowerCase() === "inactive"
+          this.state.filtrandoAnuncioPorCategoria.toLowerCase() === "inactive"
         ) {
-          console.log(this.state.filtrandoStatus);
+          console.log(this.state.filtrandoAnuncioPorCategoria);
           return data;
         }
         return null;
