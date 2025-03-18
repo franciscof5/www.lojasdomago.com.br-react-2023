@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM oven/bun AS development
+FROM oven/bun AS build
 
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -9,16 +9,19 @@ WORKDIR /app
 COPY ./package.json /app/package.json
 #COPY ./bun.lockb /app/bun.lockb
 
+# Copiar arquivos do projeto
+COPY . .
+
 # Instalar as dependências da aplicação
 RUN bun install --verbose
 
-# Copiar o restante do código-fonte para dentro do contêiner
-COPY . /app
+# Rodar o build
+RUN bun build
 
 # Etapa 2: Preparação para produção com NGINX
 FROM nginx:alpine AS app
 
-WORKDIR /usr/share/nginx/html
+#WORKDIR /usr/share/nginx/html
 
 # Remove os arquivos padrão do NGINX
 #RUN rm -rf ./*
@@ -27,7 +30,7 @@ WORKDIR /usr/share/nginx/html
 #COPY --from=build /app/dist/f5sites-angular-nossr-typescript-2024 /usr/share/nginx/html
 
 # Copia o build gerado na etapa anterior para o diretório correto no NGINX
-COPY --from=development /app/ /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
 
 # Exponha a porta padrão do NGINX
