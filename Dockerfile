@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # Etapa 1: Construção com Bun
-FROM oven/bun AS build
+FROM node:lts AS development
 
 WORKDIR /app
 
@@ -9,13 +9,13 @@ WORKDIR /app
 COPY package.json ./
 
 # Instalar dependências
-RUN bun install --frozen-lockfile
+RUN npm install
 
 # Copiar o restante dos arquivos do projeto
 COPY . .
 
 # Rodar o build corretamente
-RUN bun build
+RUN npm build
 
 # Etapa 2: Servir com NGINX
 FROM nginx:alpine AS app
