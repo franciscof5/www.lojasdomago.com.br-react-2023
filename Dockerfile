@@ -15,13 +15,13 @@ RUN bun install --frozen-lockfile
 COPY . .
 
 # Rodar o build corretamente
-RUN bun run build
+RUN bun build
 
 # Etapa 2: Servir com NGINX
 FROM nginx:alpine AS app
 
 # Copiar o build gerado para o diretório correto do NGINX
-COPY --from=build /app/public /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
