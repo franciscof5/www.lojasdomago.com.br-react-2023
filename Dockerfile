@@ -17,9 +17,6 @@ COPY . .
 
 # Rodar o build corretamente
 RUN npm run build
-RUN ls -l /app
-# Verifique o conteúdo da pasta dist
-RUN ls -l /app/dist
 
 FROM nginx:alpine AS app
 
