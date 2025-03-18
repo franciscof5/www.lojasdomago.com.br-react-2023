@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2  # Configura o Buildx (se precisar do BuildKit)
+
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
@@ -44,19 +47,18 @@ jobs:
           name: build-output
           path: build/
 
+      - name: Build Docker image
+        run: |
+          docker build -t f5sites/lojasdomago_react .
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        run: |
-          cd $GITHUB_WORKSPACE
-          docker build -t f5sites/lojasdomago_react:latest .
-
       - name: Push Docker image
-        run: docker push f5sites/lojasdomago_react:latest
+        run: docker push f5sites/lojasdomago_react
 
   deploy:
     runs-on: ubuntu-latest
