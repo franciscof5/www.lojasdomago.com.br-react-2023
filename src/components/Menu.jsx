@@ -10,7 +10,7 @@ export default function Menu() {
     <nav className="header-logo my-0">
       <Image className="float-start" src="lojasdomago-logo-200.jpg" alt="Logo Lojas do Msgo" width="80px"/>
       <h1>Lojas do Mago</h1>
-      <p>Tecnologia que parece mágica!</p>
+      <p>Solana Markeplace: Tecnologia que parece mágica</p>
     </nav>
   );
 }
