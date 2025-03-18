@@ -6,7 +6,7 @@ FROM oven/bun AS build
 WORKDIR /app
 
 # Copiar apenas os arquivos essenciais
-COPY package.json bun.lockb ./
+COPY package.json ./
 
 # Instalar dependências
 RUN bun install --frozen-lockfile
